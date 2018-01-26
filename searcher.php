@@ -15,6 +15,39 @@ $json = fread($file, filesize('data-1.json'));
 $data = json_decode($json, true);
 
 //primer filtro de precios
+$r = array();
+foreach($data as $i){
+	$p = $i['Precio'];
+	$p = substr($p, strpos($p,'$') + 1);
+	$c = strpos($p, ',');
+	$p = substr($p, 0, $c).substr($, $c + 1);
+	if($p>=$min && $p<=$max){
+		array_push($r, $i);
+	}
+}
+
+$resul = array();
+if(!empty($ciudad) && !empty($tipo)){
+	foreach($r as $e){
+		if($e['Ciudad']==$ciudad && $e['Tipo']==$tipo){
+			array_push($resul, $e);
+		}
+	}
+} elseif(!empty($ciudad)){
+	foreach($r as $e){
+		if($e['Ciudad']==$ciudad){
+			array_push($resul, $e);
+		}
+	}
+} elseif(!empty($tipo)){
+	foreach($r as $e){
+		if($e[´Tipo]==$ciudad){
+			array_push($resul, $e);
+		}
+	}
+} else {
+	$resul = $r;
+}
 
 
 
