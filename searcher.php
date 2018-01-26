@@ -14,7 +14,7 @@ $file = fopen('data-1.json', 'r') or die ('No se puede abrir el archivo');
 $json = fread($file, filesize('data-1.json'));
 $data = json_decode($json, true);
 
-//primer filtro de precios
+//filtros
 $r = array();
 foreach($data as $i){
 	$p = $i['Precio'];
@@ -50,5 +50,9 @@ if(!empty($ciudad) && !empty($tipo)){
 }
 
 
+$rjson = json_encode($resul);
+echo('{"resul";"success", "message":"Resultados obtenidos exitosamente", "data":'.$rjson'}');
+
+fclose($file);
 
 ?>
